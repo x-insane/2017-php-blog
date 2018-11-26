@@ -1,0 +1,170 @@
+.main
+{
+	width: 600px;
+	margin: 0 auto;
+	font-family: YouYuan;
+}
+.header
+{
+	background-color: #0062AD;
+	height: 90px;
+	color: white;
+	font-weight: bold;
+	/*margin-bottom: 0px;*/
+}
+.header>p
+{
+	font-size: 1.8em;
+	text-align: center;
+	line-height: 90px;
+}
+.header>p>img
+{
+	margin-top: 20px;
+}
+/*适应没有上边空白的页面*/
+.header>div
+{
+	font-size: 2em;
+	text-align: center;
+	line-height: 90px;
+}
+.header>div>img
+{
+	margin-top: 20px;
+}
+/*重定义完毕*/
+.body
+{
+	/*display: inline-block;
+	width: 100%;*/
+	text-align: center;
+	background-color: #EDEDED;
+	/*height: auto;*/
+	/*margin: 0;*/
+	padding: 30px 0;/*定义了主体下方空白区域的高度*/
+}
+.bodyframe
+{
+	display: inline-block;
+	background-color: #FFFFFF;
+	/*position: relative;*/
+	/*top: 32px;定义了主体上方与标题栏之间空白区域的高度*/
+	/*left: 125px;*/
+	width: 400px;
+	height: auto;
+	box-shadow: 1px 2px 5px 2px #B3B3B3;
+}
+.bodyframe>div
+{
+	/*position: relative;*/
+	/*top: 10px;*/
+	/*left: 50px;*/
+	display: inline-block;
+	width: 300px;
+	padding: 30px 0;
+}
+.bodyframe>div>div
+{
+	margin-bottom: 20px;
+}
+.bodyframe>div>p>a
+{
+	text-decoration: none;
+}
+.title
+{
+	text-align: left;
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #858585;
+}
+.title>span
+{
+	color: red;
+	font-size: 0.7em;
+}
+.bodyframe img
+{
+	margin: 8px 2px 0 3px;
+}
+.itemframe
+{
+	border: 1px solid #C0C0C0;
+	height: 40px;
+	width: 296px;
+	border-radius: 5px;
+}
+.itemframe>input
+{
+	border: none;
+	outline: medium;
+	font-size: 1.35em;
+	font-family: YouYuan;
+	line-height: 36px;
+	width: 260px;
+}
+.itemframe>span
+{
+	font-size: 1.35em;
+	font-family: YouYuan;
+	line-height: 36px;
+	width: 260px;
+}
+.submit
+{
+	border: none;
+	background-color: #009FE9;
+	color: white;
+	width: 120px;
+	height: 40px;
+	font-size: 1.4em;
+	font-family: YouYuan;
+	margin: 13px 0 0 0;
+	box-shadow: 1px 1px 2px 1px #47ABE2;
+	cursor: pointer;
+	border-radius: 5px;
+}
+.submit:hover
+{
+	background-color: #35B1EB;
+}
+.vcodeframe
+{
+	border: 1px solid #C0C0C0;
+	width: 296px;
+	height: 50px;
+	display: none;
+	border-radius: 5px;
+}
+#vcode
+{
+	border: none;
+	outline: medium;
+	font-size: 1.35em;
+	font-family: YouYuan;
+	width: 140px;
+	line-height: 46px;
+	margin-left: 12px;
+}
+.vcodeframe>img
+{
+	width: 135px;
+	height: 50px;
+	margin: 0;
+}
+@media screen and (max-width: 600px)
+{
+	body{background-color: #EDEDED;}
+	body,.main,.header,.body
+	{
+		width: 100%;
+		margin: 0;
+	}
+	.header>p{margin-top: 0;}
+	.bodyframe
+	{
+		width: 98%;
+		box-shadow: none;
+	}
+}

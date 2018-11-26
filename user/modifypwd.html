@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>修改密码</title>
+	<link rel="stylesheet" type="text/css" href="user_frame&item.css">
+</head>
+<body>
+<div class="main">
+	<div class="header">
+		<p>
+			<img src="img/user.png" height="50px" align="top">
+			用户统一认证系统
+		</p>
+	</div>
+	<div class="body">
+		<div class="bodyframe">
+			<div>
+				<div class="title">修改密码<span> 不存在该用户</span></div>
+				<div class="itemframe">
+					<img src="img/username.png" height="23px" align="top">
+					<span id="name">用户名</span>
+				</div>
+				<div class="itemframe">
+					<img src="img/userpwd.png" height="23px" align="top">
+					<input type="password" id="pwd" placeholder="旧密码">
+				</div>
+				<div class="itemframe">
+					<img src="img/userpwd.png" height="23px" align="top">
+					<input type="password" id="pwd" placeholder="新密码">
+				</div>
+				<div class="itemframe">
+					<img src="img/userpwd.png" height="23px" align="top">
+					<input type="password" id="pwd" placeholder="重复新密码">
+				</div>
+				<div class="vcodeframe">
+					<input type="text" id="vcode" placeholder="请输入验证码">
+					<img title="点击刷新" id="vcodeimg" src="../extends/captcha.php" align="right"></img>
+				</div>
+				<p>
+					<a href="login.html">记得密码?直接登录</a>&nbsp;
+					<a href="register.html">没有账号?我要注册</a>
+				</p>
+				<center><button class="submit" id="modifypwd">修 改</button></center>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

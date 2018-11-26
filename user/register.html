@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>注册新用户</title>
+	<link rel="stylesheet" type="text/css" href="user_frame&item.css">
+	<script src="../lib/compatible.js"></script>
+	<script>
+	function vcodefresh()
+	{
+		document.getElementById("vcodeimg").src='../captcha/captcha.php?'+Math.random();
+		document.getElementById("vcode").value = "";
+		document.getElementById("vcode").focus();
+	}
+	function register()
+	{
+		document.getElementById("tip").innerHTML = "";
+		var name = document.getElementById("name");
+		var pwd = document.getElementById("pwd");
+		var repwd = document.getElementById("repwd");
+		var vcode = document.getElementById("vcode");
+		if(name.value == "")
+		{
+			document.getElementById("tip").innerHTML = "请输入用户名！";
+			name.focus();
+			return;
+		}
+		if(pwd.value == "")
+		{
+			document.getElementById("tip").innerHTML = "请输入密码！";
+			pwd.focus();
+			return;
+		}
+		if(repwd.value == "")
+		{
+			document.getElementById("tip").innerHTML = "请再次输入密码！";
+			repwd.focus();
+			return;
+		}
+		if(pwd.value != repwd.value)
+		{
+			document.getElementById("tip").innerHTML = "<br/>两次输入的密码不一样！";
+			repwd.focus();
+			return;
+		}
+		if(vcode.value == "")
+		{
+			document.getElementById("tip").innerHTML = "请输入验证码！";
+			vcode.focus();
+			return;
+		}
+		var regbn = document.getElementById("register");
+		regbn.disabled = true;
+		regbn.innerHTML = "注册中…";
+		regbn.style.cursor = "default";
+
+		$.post("register.php",
+		{
+			name:name.value,
+			pwd:pwd.value,
+			sex:"",
+			mailbox:"",
+			tel:"",
+			qq:"",
+			ques:"",
+			ans:"",
+			true_name:"",
+			invite_code:"",
+			vcode:vcode.value
+		},function(data,status)
+		{
+			if(status=="success")
+			{
+				var d = JSON.parse(data);
+				if(d.result == "ok")
+				{
+					location.href = d.url;
+					return;
+				}
+				else if(d.result=="wrong_vcode")
+				{
+					document.getElementById("tip").innerHTML = "验证码错误";
+					regbn.disabled = false;
+					regbn.innerHTML = "注册";
+					regbn.style.cursor = "pointer";
+					vcodefresh();
+				}
+				else
+				{
+					if(d.result.length > 6)
+						document.getElementById("tip").innerHTML = "<br/>"+d.result;
+					else
+						document.getElementById("tip").innerHTML = d.result;
+					regbn.disabled = false;
+					regbn.innerHTML = "注册";
+					regbn.style.cursor = "pointer";
+					vcodefresh();
+				}
+			}
+		});
+	}
+	</script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+</head>
+<body>
+<div class="main">
+	<div class="header">
+		<p>
+			<img src="img/user.png" height="50px" align="top">
+			用户统一认证系统
+		</p>
+	</div>
+	<div class="body">
+		<div class="bodyframe">
+			<div>
+				<div class="title">注册新用户 <span id="tip"></span></div>
+				<div class="itemframe">
+					<img src="img/username.png" height="23px" align="top">
+					<input type="text" id="name" placeholder="请输入用户名">
+				</div>
+				<div class="itemframe">
+					<img src="img/userpwd.png" height="23px" align="top">
+					<input type="password" id="pwd" placeholder="请输入密码">
+				</div>
+				<div class="itemframe">
+					<img src="img/userpwd.png" height="23px" align="top">
+					<input type="password" id="repwd" placeholder="请重复输入密码">
+				</div>
+				<div class="vcodeframe" style="display: block;">
+					<input type="text" id="vcode" placeholder="请输入验证码">
+					<img title="点击刷新" id="vcodeimg" src="../captcha/captcha.php" align="right" onclick="vcodefresh()"></img>
+				</div>
+				<p>
+					<a href="login.html">已有帐号?直接登录</a>
+				</p>
+				<center><button class="submit" id="register" onclick="register()">注 册</button></center>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+document.onkeydown = function (event)
+{
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+    if (e && e.keyCode == 13 && document.getElementById("register").disabled==false)
+        register();
+};
+</script>
+</body>
+</html>

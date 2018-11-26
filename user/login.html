@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>用户登录</title>
+	<link rel="stylesheet" type="text/css" href="user_frame&item.css">
+	<script src="../lib/compatible.js"></script>
+	<script type="text/javascript">
+	function vcodefresh()
+	{
+		document.getElementById("vcodeimg").src='../captcha/captcha.php?'+Math.random();
+		document.getElementById("vcode").value = "";
+		document.getElementById("vcode").focus();
+	}
+	function login()
+	{
+		document.getElementById("tip").innerHTML = "";
+		var name = document.getElementById("name");
+		var pwd = document.getElementById("pwd");
+		var vcode = document.getElementById("vcode");
+		if(name.value == "")
+		{
+			document.getElementById("tip").innerHTML="请输入用户名！";
+			name.focus();
+			return;
+		}
+		if(pwd.value == "")
+		{
+			document.getElementById("tip").innerHTML="请输入密码！";
+			pwd.focus();
+			return;
+		}
+
+		var loginbn = document.getElementById("login");
+		loginbn.disabled = true;
+		loginbn.innerHTML = "登陆中…";
+		loginbn.style.cursor = "default";
+
+		$.post("login.php",
+		{
+			name:name.value,
+			pwd:pwd.value,
+			vcode:vcode.value
+		},function(data,status)
+		{
+			if(status=="success")
+			{
+				var d = JSON.parse(data);
+				if(d.result == "ok")
+				{
+					location.href = d.url;
+					return;
+				}
+				else if(d.result=="needcode")
+				{
+					document.getElementById("tip").innerHTML="请输入验证码！";
+					document.getElementById("vcodeframe").style.display = "block";
+					loginbn.disabled = false;
+					loginbn.innerHTML = "登陆";
+					loginbn.style.cursor = "pointer";
+					document.getElementById("vcode").focus();
+				}
+				else if(d.result=="wrong_vcode")
+				{
+					document.getElementById("tip").innerHTML="验证码错误！";
+					loginbn.disabled = false;
+					loginbn.innerHTML = "登陆";
+					loginbn.style.cursor = "pointer";
+					vcodefresh();
+				}
+				else
+				{
+					if(d.result.length > 6)
+						document.getElementById("tip").innerHTML="<br/>"+d.result;
+					else
+						document.getElementById("tip").innerHTML=d.result;
+					loginbn.disabled = false;
+					loginbn.innerHTML = "登陆";
+					loginbn.style.cursor = "pointer";
+					vcodefresh();
+					pwd.focus();
+				}
+			}
+		});
+	}
+	</script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+</head>
+<body>
+<div class="main">
+	<div class="header">
+		<p>
+			<img src="img/user.png" height="50px" align="top">
+			用户统一认证系统
+		</p>
+	</div>
+	<div class="body">
+		<div class="bodyframe">
+			<div>
+				<div class="title">用户登录 <span id="tip"></span></div>
+				<div class="itemframe">
+					<img src="img/username.png" height="23px" align="top">
+					<input type="text" id="name" placeholder="用户名">
+				</div>
+				<div class="itemframe">
+					<img src="img/userpwd.png" height="23px" align="top">
+					<input type="password" id="pwd" placeholder="密码">
+				</div>
+				<div class="vcodeframe" id="vcodeframe">
+					<input type="text" id="vcode" placeholder="请输入验证码">
+					<img title="点击刷新" id="vcodeimg" src="../captcha/captcha.php" align="right" onclick="vcodefresh()"></img>
+				</div>
+				<p>
+					<a href="resetpwd.html">忘记密码?找回密码</a>&nbsp;
+					<a href="register.html">没有账号?我要注册</a>
+				</p>
+				<center><button class="submit" id="login" onclick="login()">登 录</button></center>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+document.onkeydown = function (event)
+{
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+    if (e && e.keyCode == 13 && document.getElementById("login").disabled==false)
+        login();
+};
+</script>
+</body>
+</html>
