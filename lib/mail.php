@@ -6,15 +6,15 @@ function sendmail($to,$subject,$content,$from="admin@mail.gotohope.cn")
 	$mail = new PHPMailer();
 	$mail->isSMTP();
 	$mail->SMTPAuth=true;
-	$mail->Host = 'smtp.qq.com'; // 使用QQ邮箱
+	$mail->Host = 'smtp.qq.com';
 	$mail->SMTPSecure = 'ssl';
 	$mail->Port = 465;
-	$mail->Helo = 'smtp.qq.com Server';
-	$mail->Hostname = ''; // 要显示的邮箱地址
+	$mail->Helo = 'Gotohope.cn smtp.qq.com Server';
+	$mail->Hostname = 'mail.gotohope.cn';
 	$mail->CharSet = 'UTF-8';
-	$mail->FromName = ''; // 昵称
-	$mail->Username =''; // 用户名
-	$mail->Password = ''; // 密码或授权码
+	$mail->FromName = '希望工作室';
+	$mail->Username ='1432337579';
+	$mail->Password = 'mmlztdfizcxjhebc';
 	$mail->From = $from;
 	$mail->isHTML(true);
 	$mail->addAddress($to,$to);
@@ -22,3 +22,4 @@ function sendmail($to,$subject,$content,$from="admin@mail.gotohope.cn")
 	$mail->Body = $content;
 	return $mail->send();
 }
+?>
